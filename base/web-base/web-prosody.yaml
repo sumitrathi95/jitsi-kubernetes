@@ -28,6 +28,9 @@ spec:
             - mountPath: /config/config.js
               name: web-config
               subPath: config.js
+            - mountPath: /defaults/meet.conf
+              name: web-config
+              subPath: meet.conf
           imagePullPolicy: Always
           env:
             - name: XMPP_SERVER
@@ -55,7 +58,7 @@ spec:
             - name: JVB_TCP_HARVESTER_DISABLED
               value: "true"
         - name: prosody
-          image: jitsi/prosody
+          image: jitsi/prosody:stable-5142
           imagePullPolicy: Always
           env:
             - name: XMPP_DOMAIN
@@ -91,7 +94,7 @@ spec:
                   name: jitsi-config
                   key: TZ
             - name: JVB_TCP_HARVESTER_DISABLED
-              value: "true"        
+              value: "true"     
       volumes:
         - name: web-config
           configMap:
@@ -99,4 +102,6 @@ spec:
             items:
             - key: config.js
               path: config.js
+            - key: meet.conf
+              path: meet.conf
 
