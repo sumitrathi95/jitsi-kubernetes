@@ -32,6 +32,7 @@ data:
         export JVB_PUBLIC_IP=`(curl ifconfig.me)`
         
         sed -i  "s/MUC_NICKNAME={{ .Env.HOSTNAME }}/MUC_NICKNAME=$OCTO_REGION-$HOSTNAME/" /defaults/sip-communicator.properties
+        sed -i  "s/COLIBRI_WS_SERVER_ID={{ \$WS_SERVER_ID }}/COLIBRI_WS_SERVER_ID=$JVB_PUBLIC_IP:$jetty_port/" /defaults/sip-communicator.properties
         echo $JVB_PORT
         echo "========JVB_PORT:""$JVB_PORT""=================="
         echo "org.jitsi.videobridge.octo.BIND_ADDRESS=0.0.0.0" >> /defaults/sip-communicator.properties
