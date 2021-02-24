@@ -82,6 +82,8 @@ data:
     location @root_path {
         rewrite ^/(.*)$ / break;
     }
+    
+    sed -i "s/l:9090/l:30900/" /defaults/meet.conf
 
   interface_config.js: |
     /* eslint-disable no-unused-vars, no-var, max-len */
