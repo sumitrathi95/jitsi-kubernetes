@@ -41,6 +41,11 @@ spec:
                 configMapKeyRef:
                   name: jitsi-config
                   key: DOCKER_HOST_ADDRESS
+            - name: PUBLIC_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: jitsi-config
+                  key: PUBLIC_URL
             - name: XMPP_DOMAIN
               value: meet.jitsi
             - name: XMPP_AUTH_DOMAIN

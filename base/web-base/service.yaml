@@ -20,6 +20,11 @@ spec:
       port: 443
       nodePort: 30443
       targetPort: 80
+    - name: "ws"
+      protocol: TCP
+      port: 8443
+      nodePort: 30843
+      targetPort: 80
     - name: "muc"
       protocol: TCP
       port: 5347
