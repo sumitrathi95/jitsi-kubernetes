@@ -27,11 +27,16 @@ data:
         IFS='-' read -ra ADDR <<< "$HOSTNAME"
         let jvb_port=$((31000+${ADDR[1]}))
         let octo_port=$((30960+${ADDR[1]}))
+        let jetty_port=$((30900+{ADDR[1]}))
         export OCTO_PULIC_BIND_PORT="$octo_port"
         export JVB_PORT="$jvb_port"
         export JVB_PUBLIC_IP=`(curl ifconfig.me)`
         
         sed -i  "s/MUC_NICKNAME={{ .Env.HOSTNAME }}/MUC_NICKNAME=$OCTO_REGION-$HOSTNAME/" /defaults/sip-communicator.properties
+        sed -i  "s/NAT_HARVESTER_LOCAL_ADDRESS={{ .Env.LOCAL_ADDRESS }}/NAT_HARVESTER_LOCAL_ADDRESS=$JVB_PUBLIC_IP/" /defaults/sip-communicator.properties
+        sed -i  "s/COLIBRI_WS_SERVER_ID={{ \$WS_SERVER_ID }}/COLIBRI_WS_SERVER_ID=$JVB_PUBLIC_IP/" /defaults/sip-communicator.properties
+        sed -i  "s/COLIBRI_WS_TLS=true/COLIBRI_WS_TLS=false/" /defaults/sip-communicator.properties
+        sed -i  "s/org.jitsi.videobridge.rest.jetty.port=9090/org.jitsi.videobridge.rest.jetty.port=$jetty_port/" /defaults/sip-communicator.properties
         echo $JVB_PORT
         echo "========JVB_PORT:""$JVB_PORT""=================="
         echo "org.jitsi.videobridge.octo.BIND_ADDRESS=0.0.0.0" >> /defaults/sip-communicator.properties
